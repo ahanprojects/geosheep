@@ -39,9 +39,12 @@
 	"type": "module",
 	"dependencies": {
 		"@fontsource-variable/manrope": "^5.0.20",
+		"@types/geojson-vt": "^3.2.5",
 		"@types/shpjs": "^3.4.7",
 		"buffer": "^6.0.3",
 		"clsx": "^2.1.1",
+		"geojson-vt": "^4.0.0",
+		"leaflet-geojson-vt": "^1.1.0",
 		"lucide-svelte": "^0.394.0",
 		"shpjs": "^5.0.1",
 		"svelte-leafletjs": "^1.2.0",

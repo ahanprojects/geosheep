@@ -9,11 +9,10 @@
 		DEFAULT_TILE_URL
 	} from '$lib/utils/constants';
 	import shpjs, { parseShp } from 'shpjs';
+	import { vt } from '$lib/utils/vt';
 
 	let leafletMap: LeafletMap;
-
 	let openLayerMenu = false;
-
 	let layers = [1, 2, 3, 4, 5, 6];
 
 	async function handleDrop(e: DragEvent) {
@@ -21,17 +20,27 @@
 		const file = e.dataTransfer?.files[0];
 
 		if (!file) return;
-		if (!(file.name.endsWith('.shp') || file.name.endsWith('.zip'))) return
+		if (!(file.name.endsWith('.shp') || file.name.endsWith('.zip'))) return;
 
 		const buffer = await file.arrayBuffer();
 		const isShp = file.name.endsWith('.shp');
 		const geojsonData = isShp ? parseShp(buffer) : await shpjs(buffer);
-		const map = leafletMap.getMap()
+		const map = leafletMap.getMap();
 		if (map) {
-			const geojson = L.geoJSON(geojsonData).addTo(map)
-			map.fitBounds(geojson.getBounds())
-		}
+			const vtOptions = {
+				maxZoom: 24,
+				minZoom: 0,
+				maxNativeZoom: 17,
+				minNativeZoom: 5,
+				tolerance: 5,
+				style: { color: '#0000ff', fillColor: '#0000ff4d', weight: 1 }
+			};
 
+			const tile = vt(geojsonData, vtOptions)
+			map.addLayer(tile)
+			// const geojson = L.geoJSON(geojsonData).addTo(map)
+			// map.fitBounds(geojson.getBounds())
+		}
 	}
 </script>
 
