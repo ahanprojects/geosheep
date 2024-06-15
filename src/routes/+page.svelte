@@ -122,4 +122,8 @@
 			</div>
 		</div>
 	{/if}
+
+	<div class="fixed bottom-0 z-[800]">
+		<img src="/logo.svg" alt="Geosheep Logo" class="w-40">
+	</div>
 </main>
